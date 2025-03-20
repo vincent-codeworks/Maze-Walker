@@ -17,7 +17,44 @@ public class MazeApp
 
     public void Run(string mazeFilePath)
     {
-        var lines = File.ReadAllLines(mazeFilePath).Select(l => l.Replace(" ", "")).ToArray(); // new StreamReader(new FileStream(mazeFilePath, FileMode.Open)).ReadToEnd().Replace(" ", "").Split(new[] { Environment.NewLine }, StringSplitOptions.None);
+        var lines = File.ReadAllLines(mazeFilePath).Select(l => l.Replace(" ", "")).ToArray();
+        MazeGrid maze = ExtractMaze(lines);
+        var entity = new DumbMazeWalker(maze);
+        var solved = SolveMaze(maze, entity);
+        if (solved)
+        {
+            Console.WriteLine("Reached end of maze! :)");
+        }
+    }
+
+    private static bool SolveMaze(MazeGrid maze, DumbMazeWalker entity)
+    {
+        bool endOfMazeReached = false;
+
+        while (!endOfMazeReached)
+        {
+            var couldMoveForward = entity.MoveForward();
+
+            if (!couldMoveForward)
+            {
+                entity.TurnRight();
+            }
+            else
+            {
+                if (entity.CanSeeLeftTurning())
+                {
+                    entity.TurnLeft();
+                }
+            }
+
+            endOfMazeReached = maze.AtFinish(entity);
+            Console.WriteLine(entity.CurrentPosition);
+        }
+        return endOfMazeReached;
+    }
+
+    private static MazeGrid ExtractMaze(string[] lines)
+    {
         Point start = null;
         Point finish = null;
 
@@ -61,30 +98,6 @@ public class MazeApp
         if (finish == null) throw new Exception("Maze should have a finish position set.");
 
         var maze = new MazeGrid(grid, start, finish);
-        var entity = new DumbMazeWalker(maze);
-
-        bool endOfMazeReached = false;
-
-        while (!endOfMazeReached)
-        {
-            var couldMoveForward = entity.MoveForward();
-
-            if (!couldMoveForward)
-            {
-                entity.TurnRight();
-            }
-            else
-            {
-                if (entity.CanSeeLeftTurning())
-                {
-                    entity.TurnLeft();
-                }
-            }
-
-            endOfMazeReached = maze.AtFinish(entity);
-            Console.WriteLine(entity.CurrentPosition);
-        }
-
-        Console.WriteLine("Reached end of maze! :)");
+        return maze;
     }
 }
