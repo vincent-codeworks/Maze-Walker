@@ -18,8 +18,7 @@ public class MazeApp
     {
         var lines = File.ReadAllLines(mazeFilePath).Select(l => l.Replace(" ", "")).ToArray();
         MazeGrid maze = MazeBuilder.ExtractMaze(lines);
-        var entity = new DumbMazeWalker(maze);
-        var solved = entity.SolveMaze();
+        var solved = MazeWalkerFactory.CreateWalker(walkerType, maze).SolveMaze();
         if (solved)
         {
             Console.WriteLine("Reached end of maze! :)");
