@@ -1,6 +1,4 @@
-﻿using System;
-
-namespace MazeSolver
+﻿namespace MazeSolver
 {
     public class DumbMazeWalker
     {
