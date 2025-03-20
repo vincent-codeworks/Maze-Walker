@@ -89,4 +89,30 @@ public class DumbMazeWalker
         if (canMoveForward) CurrentPosition = desiredPoint;
         return canMoveForward;
     }
+
+    public bool SolveMaze()
+    {
+        bool endOfMazeReached = false;
+
+        while (!endOfMazeReached)
+        {
+            var couldMoveForward = MoveForward();
+
+            if (!couldMoveForward)
+            {
+                TurnRight();
+            }
+            else
+            {
+                if (CanSeeLeftTurning())
+                {
+                    TurnLeft();
+                }
+            }
+
+            endOfMazeReached = _mMazeGrid.AtFinish(this);
+            Console.WriteLine(CurrentPosition);
+        }
+        return endOfMazeReached;
+    }
 }

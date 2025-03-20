@@ -20,37 +20,11 @@ public class MazeApp
         var lines = File.ReadAllLines(mazeFilePath).Select(l => l.Replace(" ", "")).ToArray();
         MazeGrid maze = ExtractMaze(lines);
         var entity = new DumbMazeWalker(maze);
-        var solved = SolveMaze(maze, entity);
+        var solved = entity.SolveMaze();
         if (solved)
         {
             Console.WriteLine("Reached end of maze! :)");
         }
-    }
-
-    private static bool SolveMaze(MazeGrid maze, DumbMazeWalker entity)
-    {
-        bool endOfMazeReached = false;
-
-        while (!endOfMazeReached)
-        {
-            var couldMoveForward = entity.MoveForward();
-
-            if (!couldMoveForward)
-            {
-                entity.TurnRight();
-            }
-            else
-            {
-                if (entity.CanSeeLeftTurning())
-                {
-                    entity.TurnLeft();
-                }
-            }
-
-            endOfMazeReached = maze.AtFinish(entity);
-            Console.WriteLine(entity.CurrentPosition);
-        }
-        return endOfMazeReached;
     }
 
     private static MazeGrid ExtractMaze(string[] lines)
