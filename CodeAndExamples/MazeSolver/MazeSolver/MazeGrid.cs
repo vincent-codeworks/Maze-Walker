@@ -1,31 +1,30 @@
-﻿namespace MazeSolver
+﻿namespace MazeSolver;
+
+public class MazeGrid
 {
-    public class MazeGrid
+    // +--------> +ve X
+    // |
+    // |
+    // |
+    // |
+    // v
+    // +ve Y
+
+    public MazeGrid(bool[][] grid, Point start, Point finish)
     {
-        // +--------> +ve X
-        // |
-        // |
-        // |
-        // |
-        // v
-        // +ve Y
-
-        public MazeGrid(bool[][] grid, Point start, Point finish)
-        {
-            Grid = grid;
-            StartPosition = start;
-            Finish = finish;
-        }
-
-        public Point StartPosition { get; }
-
-        public bool AtFinish(DumbMazeWalker walker)
-        {
-            return Finish.X == walker.CurrentPosition.X && Finish.Y == walker.CurrentPosition.Y;
-        }
-
-        public Point Finish { get; }
-
-        public bool[][] Grid { get; }
+        Grid = grid;
+        StartPosition = start;
+        Finish = finish;
     }
+
+    public Point StartPosition { get; }
+
+    public bool AtFinish(DumbMazeWalker walker)
+    {
+        return Finish.X == walker.CurrentPosition.X && Finish.Y == walker.CurrentPosition.Y;
+    }
+
+    public Point Finish { get; }
+
+    public bool[][] Grid { get; }
 }
