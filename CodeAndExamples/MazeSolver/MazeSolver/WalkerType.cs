@@ -2,5 +2,6 @@
 
 public enum WalkerType
 {
-    Dumb
+    Dumb,
+    Smart
 }

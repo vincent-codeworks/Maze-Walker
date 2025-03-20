@@ -6,7 +6,12 @@ namespace MazeSolverTests
     {
         internal static object CreateWalker(WalkerType dumb, MazeGrid maze)
         {
-            return new DumbMazeWalker(maze);
+            return dumb switch
+            {
+                WalkerType.Smart => new SmartMazeWalker(maze),
+                WalkerType.Dumb => new DumbMazeWalker(maze),
+                _ => throw new NotImplementedException()
+            };
         }
     }
 }
