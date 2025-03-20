@@ -14,7 +14,7 @@ public class MazeApp
         Console.ReadLine();
     }
 
-    public static void Run(string mazeFilePath)
+    public static void Run(string mazeFilePath, WalkerType walkerType = WalkerType.Dumb)
     {
         var lines = File.ReadAllLines(mazeFilePath).Select(l => l.Replace(" ", "")).ToArray();
         MazeGrid maze = MazeBuilder.ExtractMaze(lines);

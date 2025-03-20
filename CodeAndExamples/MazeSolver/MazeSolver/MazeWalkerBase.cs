@@ -1,19 +1,12 @@
 ﻿namespace MazeSolver
 {
-    public abstract class MazeWalkerBase
+    public abstract class MazeWalkerBase(MazeGrid mMazeGrid, Orientation mDirec, Point currentPosition)
     {
-        protected readonly MazeGrid _mMazeGrid;
-        protected Orientation _mDirec;
-        public Point CurrentPosition { get; set; }
+        protected readonly MazeGrid _mMazeGrid = mMazeGrid;
+        protected Orientation _mDirec = mDirec;
+        public Point CurrentPosition { get; set; } = currentPosition;
 
-        protected MazeWalkerBase(MazeGrid mMazeGrid, Orientation mDirec, Point currentPosition)
-        {
-            _mMazeGrid = mMazeGrid;
-            _mDirec = mDirec;
-            CurrentPosition = currentPosition;
-        }
-
-        public bool CanTurnLeft()
+        protected bool CanTurnLeft()
         {
             var pointToOurLeft = new Point(CurrentPosition.X, CurrentPosition.Y);
 
@@ -38,7 +31,7 @@
             return _mMazeGrid.Grid[pointToOurLeft.Y][pointToOurLeft.X];
         }
 
-        public bool MoveForward()
+        protected bool MoveForward()
         {
             var desiredPoint = new Point(CurrentPosition.X, CurrentPosition.Y);
 
@@ -67,7 +60,7 @@
 
         public abstract bool SolveMaze();
 
-        public void TurnLeft()
+        protected void TurnLeft()
         {
             _mDirec = _mDirec switch
             {
