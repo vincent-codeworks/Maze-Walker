@@ -25,8 +25,7 @@ public class MazeTests
             Reached end of maze! :)
             
             """;
-        var mazeApp = new MazeApp();
-        mazeApp.Run(@"MazeFiles\maze1.txt");
+        MazeApp.Run(@"MazeFiles\maze1.txt");
         var actualOutput = stringWriter.ToString();
         Assert.Equal(expectedOutput, actualOutput);
 
