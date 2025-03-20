@@ -41,44 +41,26 @@ public class DumbMazeWalker
 
     public void TurnRight()
     {
-        switch (_mDirec)
+        _mDirec = _mDirec switch
         {
-            case Orientation.North:
-                _mDirec = Orientation.East;
-                break;
-            case Orientation.East:
-                _mDirec = Orientation.South;
-                break;
-            case Orientation.South:
-                _mDirec = Orientation.West;
-                break;
-            case Orientation.West:
-                _mDirec = Orientation.North;
-                break;
-            default:
-                throw new Exception();
-        }
+            Orientation.North => Orientation.East,
+            Orientation.West => Orientation.North,
+            Orientation.South => Orientation.West,
+            Orientation.East => Orientation.South,
+            _ => throw new Exception(),
+        };
     }
 
     public void TurnLeft()
     {
-        switch (_mDirec)
+        _mDirec = _mDirec switch
         {
-            case Orientation.North:
-                _mDirec = Orientation.West;
-                break;
-            case Orientation.West:
-                _mDirec = Orientation.South;
-                break;
-            case Orientation.South:
-                _mDirec = Orientation.East;
-                break;
-            case Orientation.East:
-                _mDirec = Orientation.North;
-                break;
-            default:
-                throw new Exception();
-        }
+            Orientation.North => Orientation.West,
+            Orientation.West => Orientation.South,
+            Orientation.South => Orientation.East,
+            Orientation.East => Orientation.North,
+            _ => throw new Exception(),
+        };
     }
 
     public bool MoveForward()
